@@ -1,0 +1,52 @@
+version: '3.8'
+name: app-backlog-games
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+  # frontend:
+  #   build:
+  #     context: ../app-gerenciamento-financeiro-frontend
+  #   container_name: frontend
+  #   ports:
+  #     - 3000:3000
+  #   networks:
+  #     - backend
+  #   volumes:
+  #     - ../app-gerenciamento-financeiro-frontend:/usr/src/app
+
+  backend:
+    build:
+      context: .
+    container_name: backend
+    depends_on:
+      - mongo1
+    ports:
+      - 8889:8889
+      - 5678:5678
+    networks:
+      - backend
+    volumes:
+      - ./src:/app/src/
+      - .env:/app/.env
+    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 -m uvicorn src.api.app:app --host 0.0.0.0 --port 8889 --reload"]
+    
+
+  mongo1:
+    hostname: mongo1
+    container_name: mongo1
+    image: mongo:5
+    networks:
+      - backend
+    volumes:
+      - ./volumes/mongo1:/mongo/data/mongo1
+      - ./dump:/dump
+    ports:
+      - 27017:27017
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 2g

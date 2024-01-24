@@ -1,0 +1,27 @@
+{
+    "user_id": "65afe978a56154801fccd681",
+    "backlog": {
+        "jogos": [
+            {
+                "id": "001",
+                "name": "Elden Ring",
+                "platform": "PS4",
+                "hours": 0,
+                "finished": false,
+                "platinum": false,
+                "price": 0
+            },
+            {
+                "id": "002",
+                "name": "Creaks",
+                "platform": "PS4",
+                "hours": 0,
+                "finished": false,
+                "platinum": false,
+                "price": 0
+            }
+        ],
+        "buy_list": [],
+        "wallet": 0
+    }
+}
