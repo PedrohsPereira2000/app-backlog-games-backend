@@ -48,6 +48,7 @@ def get_user_id(user_email: str):
     result = user_collection.find_one(
         {"user_email": user_email}
     )
+    print(result['user_id'])
     return result['user_id']
 
 def get_user_backlog(user_id: str):
