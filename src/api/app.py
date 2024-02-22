@@ -23,3 +23,7 @@ app.include_router(
 app.include_router(
     BacklogRouter, tags=["BacklogRouter"], prefix="/backlog"
 )
+
+@app.get("/test_router")
+def test_root():
+    return {"OK": "As rotas estão funcionando"}
