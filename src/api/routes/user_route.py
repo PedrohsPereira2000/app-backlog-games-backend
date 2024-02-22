@@ -61,3 +61,7 @@ def register(user: User = Body(...)) -> JSONResponse:
                 "created_user": user.user_id,
             }
         )
+
+@router.get("/test_router")
+def verify():
+    return "O SERVIÇO DE ROTAS ESTÁ FUNCIONANDO"
