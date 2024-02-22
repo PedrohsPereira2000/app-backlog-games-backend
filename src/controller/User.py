@@ -12,14 +12,12 @@ def create_user(user: User):
         return user
     
 def verify_user(user_email: str, user_password: str) -> bool:
-    print(auth_user(user_email, user_password))
     return auth_user(user_email, user_password)
 
 def get_user_id_by_email(user_email: str):
     return get_user_id(user_email)
 
 def search_user_by_id(user_id: str):
-    print(user_id)
     user = get_user_by_id(user_id)
     games = get_user_backlog(user_id)
 

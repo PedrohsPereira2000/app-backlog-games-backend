@@ -8,8 +8,6 @@ router = APIRouter()
 
 @router.post("/login")
 async def auth_user(user = Body(...)):
-    print(user['user_email'])
-    print(user['user_password'])
     if user['user_email'] != '' and user['user_password'] != '':
         if verify_user(user['user_email'], user['user_password']):
             print(get_user_id_by_email(user['user_email']))
