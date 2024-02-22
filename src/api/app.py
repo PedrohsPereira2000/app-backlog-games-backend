@@ -8,7 +8,7 @@ app = FastAPI(
     middleware=[
         Middleware(
             CORSMiddleware,
-            allow_origins=["*"],
+            allow_origins=["https://app-backlog-games-frontend-1e9i.vercel.app"],
             allow_methods=["*"],
             allow_headers=["*"],
             allow_credentials=True,
