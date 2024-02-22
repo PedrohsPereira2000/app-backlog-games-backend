@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Body, status, HTTPException
 from fastapi.responses import JSONResponse
-from src.models.User import User
-from src.controller.User import create_user, verify_user, get_user_id_by_email, search_user_by_id
+from models.User import User
+from controller.User import create_user, verify_user, get_user_id_by_email, search_user_by_id
 
 router = APIRouter()
 

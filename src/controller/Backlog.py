@@ -1,4 +1,4 @@
-from src.database.database import add_new_game, delete_game, up_game, search_game, update_wallet
+from database.database import add_new_game, delete_game, up_game, search_game, update_wallet
 from fastapi.encoders import jsonable_encoder
 
 def add_game(data: dict):

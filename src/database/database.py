@@ -1,7 +1,7 @@
 import pymongo
 from decouple import config
 from fastapi.encoders import jsonable_encoder
-from src.models.User import User
+from models.User import User
 
 client = pymongo.MongoClient(config('MONGO_URI'))
 db = client[config('MONGO_DATABASE')]

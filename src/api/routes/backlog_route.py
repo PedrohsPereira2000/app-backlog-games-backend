@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body, status, HTTPException
 from fastapi.responses import JSONResponse
-from src.controller.Backlog import add_game, remove_game, update_game, find_game, update_status_game
+from controller.Backlog import add_game, remove_game, update_game, find_game, update_status_game
 
 router = APIRouter()
 

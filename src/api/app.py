@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
-from src.api.routes.user_route import router as UserRouter
-from src.api.routes.backlog_route import router as BacklogRouter
+from api.routes.user_route import router as UserRouter
+from api.routes.backlog_route import router as BacklogRouter
 
 app = FastAPI(
     middleware=[

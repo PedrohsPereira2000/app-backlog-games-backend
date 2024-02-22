@@ -1,5 +1,5 @@
-from src.database.database import add_new_user, auth_user, get_user, update_user, get_user_id, get_user_by_id, get_user_backlog
-from src.models.User import User
+from database.database import add_new_user, auth_user, get_user, update_user, get_user_id, get_user_by_id, get_user_backlog
+from models.User import User
 from fastapi.encoders import jsonable_encoder
 
 def create_user(user: User):
