@@ -4,7 +4,17 @@ from starlette.middleware.cors import CORSMiddleware
 from api.routes.user_route import router as UserRouter
 from api.routes.backlog_route import router as BacklogRouter
 
-app = FastAPI()
+middleware = [
+    Middleware(
+        CORSMiddleware,
+        allow_origins=['*'],
+        allow_credentials=True,
+        allow_methods=['*'],
+        allow_headers=['*'],
+    )
+]
+
+app = FastAPI(middleware=middleware)
 
 app.include_router(
     UserRouter, tags=["UserRouter"], prefix="/user"
@@ -20,13 +30,6 @@ def test_root():
 
 origins=["https://app-backlog-games-frontend-1e9i.vercel.app"]
 
-app = CORSMiddleware(
-    app=app,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # app = FastAPI(
 #     middleware=[
