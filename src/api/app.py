@@ -4,17 +4,7 @@ from starlette.middleware.cors import CORSMiddleware
 from api.routes.user_route import router as UserRouter
 from api.routes.backlog_route import router as BacklogRouter
 
-middleware = [
-    Middleware(
-        CORSMiddleware,
-        allow_origins=['*'],
-        allow_credentials=True,
-        allow_methods=['*'],
-        allow_headers=['*'],
-    )
-]
-
-app = FastAPI(middleware=middleware)
+app = FastAPI()
 
 app.include_router(
     UserRouter, tags=["UserRouter"], prefix="/user"
@@ -52,11 +42,19 @@ origins=["https://app-backlog-games-frontend-1e9i.vercel.app"]
 #     response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
 #     return response
 
-# set CORS headers
-@app.middleware("https")
-async def cors_handler(request: Request, call_next):
-    response = await call_next(request)
-    response.headers['Access-Control-Allow-Origin'] = 'https://app-backlog-games-frontend-1e9i.vercel.app'
-    response.headers['Access-Control-Allow-Methods'] = 'POST, GET, DELETE, OPTIONS'
-    response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
-    return response
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
+
+# # set CORS headers
+# @app.middleware("https")
+# async def cors_handler(request: Request, call_next):
+#     response = await call_next(request)
+#     response.headers['Access-Control-Allow-Origin'] = 'https://app-backlog-games-frontend-1e9i.vercel.app'
+#     response.headers['Access-Control-Allow-Methods'] = 'POST, GET, DELETE, OPTIONS'
+#     response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
+#     return response
