@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
 from api.routes.user_route import router as UserRouter
@@ -52,11 +52,11 @@ origins=["https://app-backlog-games-frontend-1e9i.vercel.app"]
 #     response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
 #     return response
 
-# # set CORS headers
-# @app.middleware("http")
-# async def add_CORS_header(request: Request, call_next):
-#     response = await call_next(request)
-#     response.headers['Access-Control-Allow-Origin'] = ALLOWED_ORIGINS
-#     response.headers['Access-Control-Allow-Methods'] = 'POST, GET, DELETE, OPTIONS'
-#     response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
-#     return response
+# set CORS headers
+@app.middleware("https")
+async def cors_handler(request: Request, call_next):
+    response = await call_next(request)
+    response.headers['Access-Control-Allow-Origin'] = 'https://app-backlog-games-frontend-1e9i.vercel.app'
+    response.headers['Access-Control-Allow-Methods'] = 'POST, GET, DELETE, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
+    return response
