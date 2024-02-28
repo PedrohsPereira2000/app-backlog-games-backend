@@ -21,21 +21,12 @@ def search_user_by_id(user_id: str):
     user = get_user_by_id(user_id)
     games = get_user_backlog(user_id)
 
-    if games['jogos'] != []:
-        jogos = games['jogos']
-    else:
-        jogos = 'Nothing'
-    if games['buy_list'] != []:
-        buy_list = games['buy_list']
-    else:
-        buy_list = 'Nothing'
-
     result = {
         "user_id": user['user_id'],
         "user_name": user['user_name'],
         "user_email": user['user_email'],
-        "backlog_games": jogos,
-        "list_buy_games": buy_list,
+        "backlog_games": games['jogos'],
+        "list_buy_games": games['buy_list'],
         "wallet": games['wallet']
     }
 
