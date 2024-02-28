@@ -20,7 +20,7 @@ def update_game(data: dict):
 
 def find_game(data: dict):
     result = search_game(data['user_id'], data['id'])
-    return jsonify(result)
+    return result
 
 def update_status_game(data: dict):
     origin_game = search_game(data['user_id'], data['game']['id'])

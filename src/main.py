@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from models.User import User
 from controller.User import create_user, verify_user, get_user_id_by_email, search_user_by_id
-from controller.Backlog import create_new_backlog
+from controller.Backlog import create_new_backlog, add_game, remove_game, update_game, find_game, update_status_game
 
 app = Flask(__name__)
 CORS(app)
@@ -56,6 +56,81 @@ def register():
         create_new_backlog(user)
         return jsonify({
                 "created_user": user,
+            }
+        ), 200
+    
+@app.route("/backlog/new_game", methods=['POST'])
+def new_game():
+    backlog = request.json
+    game = add_game(backlog)
+    if game == "user already exists":
+        return jsonify({
+                "error": "user already exists",
+            }
+        ), 409
+    else:
+        return jsonify({
+                "Status": game,
+            }
+        ), 201
+    
+@app.route("/backlog/search", methods=['POST'])
+def search_game():
+    data = request.json
+    game = find_game(data)
+    if game == "game not exists":
+        return jsonify({
+                "error": "game not exists",
+            }
+        ), 409
+    else:
+        return jsonify({
+                "game":game,
+            }
+        )
+    
+@app.route("/backlog/update", methods=['POST'])
+def update_backlog_game():
+    data = request.json
+    game = update_game(data)
+    if game == "game not exists":
+        return jsonify({
+                "error": "game not exists",
+            }
+        ), 409
+    else:
+        return jsonify({
+                "response": game,
+            }
+        ), 200
+    
+@app.route("/backlog/update/progress", methods=['POST'])
+def update_progress():
+    data = request.json
+    game = update_status_game(data)
+    if game == "game not exists":
+        return jsonify({
+                "error": "game not exists",
+            }
+        ), 409
+    else:
+        return jsonify({
+                "response": game,
+            }
+        ), 200
+    
+@app.route("/backlog/delete", methods=['POST'])
+def delete_game():
+    data = request.json
+    game = remove_game(data)
+    if game == "game not exists":
+        return jsonify({
+                "error": "game not exists",
+            }
+        ), 409
+    else:
+        return jsonify({
+                "Status": game,
             }
         ), 200
 
