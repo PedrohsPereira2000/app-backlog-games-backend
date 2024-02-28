@@ -18,30 +18,6 @@ app.include_router(
 def test_root():
     return {"OK": "As rotas estão funcionando"}
 
-origins=["https://app-backlog-games-frontend-1e9i.vercel.app"]
-
-
-# app = FastAPI(
-#     middleware=[
-#         Middleware(
-#             CORSMiddleware,
-#             allow_origins=["https://app-backlog-games-frontend-1e9i.vercel.app"],
-#             allow_methods=["GET", "POST", "OPTIONS"],
-#             allow_headers=["*"],
-#             allow_credentials=True,
-#         )
-#     ]
-# )
-
-# # handle CORS preflight requests
-# @app.options('/{rest_of_path:path}')
-# async def preflight_handler(request: Request, rest_of_path: str) -> Response:
-#     response = Response()
-#     response.headers['Access-Control-Allow-Origin'] = ALLOWED_ORIGINS
-#     response.headers['Access-Control-Allow-Methods'] = 'POST, GET, DELETE, OPTIONS'
-#     response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
-#     return response
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['*'],
@@ -49,12 +25,3 @@ app.add_middleware(
     allow_methods=['*'],
     allow_headers=['*'],
 )
-
-# # set CORS headers
-# @app.middleware("https")
-# async def cors_handler(request: Request, call_next):
-#     response = await call_next(request)
-#     response.headers['Access-Control-Allow-Origin'] = 'https://app-backlog-games-frontend-1e9i.vercel.app'
-#     response.headers['Access-Control-Allow-Methods'] = 'POST, GET, DELETE, OPTIONS'
-#     response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
-#     return response
