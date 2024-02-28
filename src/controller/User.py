@@ -1,6 +1,6 @@
 from database.database import add_new_user, auth_user, get_user, update_user, get_user_id, get_user_by_id, get_user_backlog
 from models.User import User
-from fastapi.encoders import jsonable_encoder
+from flask import jsonify
 
 def create_user(user: User):
     user_id = add_new_user(user)
@@ -30,4 +30,4 @@ def search_user_by_id(user_id: str):
         "wallet": games['wallet']
     }
 
-    return jsonable_encoder(result)
+    return jsonify(result)

@@ -1,5 +1,5 @@
 from database.database import add_new_game, delete_game, up_game, search_game, update_wallet
-from fastapi.encoders import jsonable_encoder
+from flask import jsonify
 
 def add_game(data: dict):
     user_id = data['user_id']
@@ -17,7 +17,7 @@ def update_game(data: dict):
 
 def find_game(data: dict):
     result = search_game(data['user_id'], data['id'])
-    return jsonable_encoder(result)
+    return jsonify(result)
 
 def update_status_game(data: dict):
     origin_game = search_game(data['user_id'], data['game']['id'])

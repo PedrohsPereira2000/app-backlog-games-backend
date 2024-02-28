@@ -1,6 +1,6 @@
 import pymongo
 from decouple import config
-from fastapi.encoders import jsonable_encoder
+from flask import jsonify
 from models.User import User
 
 client = pymongo.MongoClient(config('MONGO_URI'))
@@ -11,7 +11,7 @@ backlog_collection = db['backlog']
 def add_new_user(user: User):
     verify = get_user(user.user_email)
     if verify == None:
-        result = user_collection.insert_one(jsonable_encoder(user))
+        result = user_collection.insert_one(jsonify(user))
         return str(result.inserted_id)
     else:
         return "user already exists"
@@ -40,7 +40,7 @@ def get_user_by_id(user_id: str):
 def update_user(user: User):
     result = user_collection.update_one(
         {"user_email": user.user_email},
-        {"$set": jsonable_encoder(user)}
+        {"$set": jsonify(user)}
     )
     return result
 
