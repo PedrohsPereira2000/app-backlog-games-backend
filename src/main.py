@@ -1,4 +1,3 @@
-import uvicorn
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from models.User import User
@@ -37,4 +36,4 @@ def get_backlog_by_user(user_id):
     )
 
 if __name__ == "__main__":
-    app.run(port=8999, debug=True)
+    app.run()
