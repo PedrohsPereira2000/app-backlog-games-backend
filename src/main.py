@@ -44,6 +44,7 @@ def update_user():
 
 @app.route("/user/register", methods=['POST'])
 def register():
+    user = request.json
     user = create_user(user)
     if user == "user already exists":
         return jsonify({
@@ -52,7 +53,7 @@ def register():
         ), 400
     else:
         return jsonify({
-                "created_user": user.user_id,
+                "created_user": user,
             }
         ), 200
 

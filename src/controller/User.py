@@ -4,12 +4,7 @@ from flask import jsonify
 
 def create_user(user: User):
     user_id = add_new_user(user)
-    if user_id == "user already exists":
-        return user_id
-    else:
-        user.user_id = user_id
-        update_user(user)
-        return user
+    return user_id
     
 def verify_user(user_email: str, user_password: str) -> bool:
     return auth_user(user_email, user_password)
