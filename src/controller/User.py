@@ -30,4 +30,4 @@ def search_user_by_id(user_id: str):
         "wallet": games['wallet']
     }
 
-    return jsonify(result)
+    return result

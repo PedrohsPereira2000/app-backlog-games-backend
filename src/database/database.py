@@ -11,7 +11,7 @@ backlog_collection = db['backlog']
 def add_new_user(user: User):
     verify = get_user(user.user_email)
     if verify == None:
-        result = user_collection.insert_one(jsonify(user))
+        result = user_collection.insert_one(jsonify({user}))
         return str(result.inserted_id)
     else:
         return "user already exists"
