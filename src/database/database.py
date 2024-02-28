@@ -39,8 +39,8 @@ def get_user_by_id(user_id: str):
 
 def update_user(user: User):
     result = user_collection.update_one(
-        {"user_email": user.user_email},
-        {"$set": jsonify(user)}
+        {"user_email": user['user_email']},
+        {"$set": user}
     )
     return result
 
@@ -54,10 +54,23 @@ def get_user_backlog(user_id: str):
     result = backlog_collection.find_one(
         {"user_id": user_id}
     )
-
-    backlog = result.get('backlog', {})
+    if result != None:
+        backlog = result.get('backlog', {})
+        return backlog
+    else:
+        return "Nothing"
     
-    return backlog
+def new_backlog(user_id: str):
+    result = get_user_backlog(user_id)
+    if result == 'Nothing':
+        result = backlog_collection.insert_one({
+            "user_id": user_id,
+            "backlog": {
+                "jogos": [],
+                "buy_list": [],
+                "wallet": 0
+            }
+        })
 
 def add_new_game(game, user_id: str):
     result1 = backlog_collection.find_one(

@@ -1,4 +1,4 @@
-from database.database import add_new_game, delete_game, up_game, search_game, update_wallet
+from database.database import add_new_game, delete_game, up_game, search_game, update_wallet, new_backlog
 from flask import jsonify
 
 def add_game(data: dict):
@@ -6,6 +6,9 @@ def add_game(data: dict):
     data = data['game']
     resp = add_new_game(data, user_id)
     return resp
+
+def create_new_backlog(user):
+    resp = new_backlog(user)
 
 def remove_game(data: dict):
     resp = delete_game(data['id'], data['user_id'])
