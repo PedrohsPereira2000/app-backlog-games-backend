@@ -8,11 +8,11 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route("/", methods=['GET'])
-def test_root():
+def test():
     return jsonify({'message': 'A rota está funcionando!'})
 
 @app.route("/login", methods=['POST'])
-def auth_user():
+def login():
     data = request.json
     if 'user_email' in data and 'user_password' in data:
         if verify_user(data['user_email'], data['user_password']):
