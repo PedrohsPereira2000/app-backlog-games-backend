@@ -1,4 +1,3 @@
-import uvicorn
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from models.User import User
