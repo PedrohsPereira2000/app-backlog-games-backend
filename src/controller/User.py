@@ -1,4 +1,4 @@
-from database.database import add_new_user, auth_user, get_user, update_user, get_user_id, get_user_by_id, get_user_backlog
+from database.database import*
 from models.User import User
 from flask import jsonify
 
@@ -27,7 +27,9 @@ def search_user_by_id(user_id: str):
         "user_email": user['user_email'],
         "backlog_games": games['jogos'],
         "list_buy_games": games['buy_list'],
-        "wallet": games['wallet']
+        "wallet": calc_wallet(user_id)
     }
+
+    print(result)
 
     return result

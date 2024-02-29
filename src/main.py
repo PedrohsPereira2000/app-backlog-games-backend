@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from models.User import User
 from controller.User import create_user, verify_user, get_user_id_by_email, search_user_by_id
-from controller.Backlog import create_new_backlog, add_game, remove_game, update_game, find_game, update_status_game
+from controller.Backlog import *
 
 app = Flask(__name__)
 CORS(app)
@@ -73,7 +73,30 @@ def new_game():
                 "Status": game,
             }
         ), 201
+
+@app.route("/dashboard/<user_id>/count_games", methods=['GET'])
+def counts_game(user_id):
+    game =  number_of_games(user_id)
+    if game == "user already exists":
+        return jsonify({
+                "error": "user already exists",
+            }
+        ), 409
+    else:
+        return jsonify({
+                "count": game,
+            }
+        ), 201
     
+@app.route("/dashboard/<user_id>/buy_game", methods=['POST'])
+def buy_game(user_id):
+    backlog = request.json
+    game = buying_game(user_id, backlog)
+    return jsonify({
+            "Status": game,
+        }
+    ), 201
+
 @app.route("/backlog/search", methods=['POST'])
 def search_game():
     data = request.json
@@ -104,7 +127,7 @@ def update_backlog_game():
             }
         ), 200
     
-@app.route("/backlog/update/progress", methods=['POST'])
+@app.route("/dashboard/update/progress", methods=['POST'])
 def update_progress():
     data = request.json
     game = update_status_game(data)
@@ -119,7 +142,7 @@ def update_progress():
             }
         ), 200
     
-@app.route("/backlog/delete", methods=['POST'])
+@app.route("/dashboard/delete", methods=['POST'])
 def delete_game():
     data = request.json
     game = remove_game(data)
@@ -135,4 +158,4 @@ def delete_game():
         ), 200
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
