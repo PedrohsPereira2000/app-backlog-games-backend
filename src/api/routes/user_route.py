@@ -10,7 +10,6 @@ user_bp = Blueprint('user', __name__)
 @user_bp.route("/login", methods=['POST'])
 async def auth_user():
     data = request.json
-    print(data)
     if 'user_email' in data and 'user_password' in data:
         if verify_user(data['user_email'], data['user_password']):
             print(get_user_id_by_email(data['user_email']))

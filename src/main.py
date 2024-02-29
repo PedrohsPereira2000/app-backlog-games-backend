@@ -36,7 +36,7 @@ def get_backlog_by_user(user_id):
         {"Success": user}
     ), 200
 
-@app.route("/update", methods=['POST'])
+@app.route("/user/<user_id>/update", methods=['POST'])
 def update_user():
     return jsonify({
         "OK": "User updated with success"
@@ -58,21 +58,6 @@ def register():
                 "created_user": user,
             }
         ), 200
-    
-@app.route("/backlog/new_game", methods=['POST'])
-def new_game():
-    backlog = request.json
-    game = add_game(backlog)
-    if game == "user already exists":
-        return jsonify({
-                "error": "user already exists",
-            }
-        ), 409
-    else:
-        return jsonify({
-                "Status": game,
-            }
-        ), 201
 
 @app.route("/dashboard/<user_id>/count_games", methods=['GET'])
 def counts_game(user_id):
@@ -97,8 +82,8 @@ def buy_game(user_id):
         }
     ), 201
 
-@app.route("/backlog/search", methods=['POST'])
-def search_game():
+@app.route("/dashboard/<user_id>/search", methods=['POST'])
+def search_game(user_id):
     data = request.json
     game = find_game(data)
     if game == "game not exists":
@@ -112,7 +97,7 @@ def search_game():
             }
         )
     
-@app.route("/backlog/update", methods=['POST'])
+@app.route("/dashboard/<user_id>/update", methods=['POST'])
 def update_backlog_game():
     data = request.json
     game = update_game(data)

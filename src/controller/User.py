@@ -29,7 +29,4 @@ def search_user_by_id(user_id: str):
         "list_buy_games": games['buy_list'],
         "wallet": calc_wallet(user_id)
     }
-
-    print(result)
-
     return result
