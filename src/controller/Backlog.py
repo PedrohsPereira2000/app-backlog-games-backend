@@ -8,11 +8,13 @@ def add_game(data: dict):
     return resp
 
 def buying_game(user_id, data: dict):
+    print(data)
     user_id = user_id
+    price = data['price']
     data = data['game']
     resp = add_new_game(data, user_id)
-    calc_wallet(user_id, data['price'])
-    add_game_buy_list(user_id, data)
+    calc_wallet(user_id, price)
+    add_game_buy_list(user_id, data['id'], data['name'], price)
     return resp
 
 def calc_wallet(user_id, price):
@@ -21,13 +23,13 @@ def calc_wallet(user_id, price):
 def create_new_backlog(user):
     resp = new_backlog(user)
 
-def remove_game(data: dict):
-    resp = delete_game(data['id'], data['user_id'])
-    resp2 = delete_buy_game(data['id'], data['user_id'])
+def remove_game(data: dict, user_id):
+    resp = delete_game(data['id'], user_id)
+    resp2 = delete_buy_game(data['id'], user_id)
     return resp
 
-def update_game(data: dict):
-    resp = up_game(data['user_id'], data['game'])
+def update_game(data: dict, user_id):
+    resp = up_game(user_id, data['game'])
     return resp
 
 

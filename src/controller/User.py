@@ -17,6 +17,17 @@ def verify_user(user_email: str, user_password: str) -> bool:
 def get_user_id_by_email(user_email: str):
     return get_user_id(user_email)
 
+def search_user_profile(user_id: str):
+    user = get_user_by_id(user_id)
+
+    result = {
+        "user_id": user['user_id'],
+        "user_name": user['user_name'],
+        "user_email": user['user_email'],
+        "user_password": user['user_password'],
+    }
+    return result
+
 def search_user_by_id(user_id: str):
     user = get_user_by_id(user_id)
     games = get_user_backlog(user_id)

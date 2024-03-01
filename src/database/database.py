@@ -73,16 +73,16 @@ def new_backlog(user_id: str):
             }
         })
 
-def add_game_buy_list(user_id, data):
+def add_game_buy_list(user_id, id, name, price):
     buy_in_date = date.today().isoformat()
     backlog_collection.update_one(
         {"user_id": user_id},  # Condição para encontrar o documento do usuário
         {"$push": {
             "backlog.buy_list": {
-                "id": data['id'],
+                "id": id,
                 "buy_in": buy_in_date,  # Data de compra atual
-                "name": data['name'],   # Nome do jogo
-                "price": data['price']  # Preço do jogo
+                "name": name,   # Nome do jogo
+                "price": price  # Preço do jogo
             }
         }},
         upsert=True  # Se o documento não existir, crie um novo

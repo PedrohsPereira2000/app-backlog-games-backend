@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from models.User import User
-from controller.User import create_user, verify_user, get_user_id_by_email, search_user_by_id
+from controller.User import *
 from controller.Backlog import *
 
 app = Flask(__name__)
@@ -30,6 +30,15 @@ def login():
 @app.route("/user/<user_id>", methods=['GET'])
 def get_backlog_by_user(user_id):
     user = search_user_by_id(user_id)
+    if user is None:
+        return jsonify({"error": "O Id do usuário não foi informado, ou está errado"})
+    return jsonify(
+        {"Success": user}
+    ), 200
+
+@app.route("/user/<user_id>/profile", methods=['GET'])
+def get_profile_by_user(user_id):
+    user = search_user_profile(user_id)
     if user is None:
         return jsonify({"error": "O Id do usuário não foi informado, ou está errado"})
     return jsonify(
@@ -98,9 +107,9 @@ def search_game(user_id):
         )
     
 @app.route("/dashboard/<user_id>/update", methods=['POST'])
-def update_backlog_game():
+def update_backlog_game(user_id):
     data = request.json
-    game = update_game(data)
+    game = update_game(data, user_id)
     if game == "game not exists":
         return jsonify({
                 "error": "game not exists",
@@ -127,10 +136,10 @@ def update_progress():
             }
         ), 200
     
-@app.route("/dashboard/delete", methods=['POST'])
-def delete_game():
+@app.route("/dashboard/<user_id>/delete", methods=['POST'])
+def delete_game(user_id):
     data = request.json
-    game = remove_game(data)
+    game = remove_game(data, user_id)
     if game == "game not exists":
         return jsonify({
                 "error": "game not exists",
