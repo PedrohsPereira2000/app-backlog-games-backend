@@ -1,4 +1,5 @@
 from database.database import *
+from datetime import date
 from flask import jsonify
 
 def add_game(data: dict):
@@ -39,33 +40,19 @@ def find_game(data: dict):
 
 def update_status_game(data: dict):
     origin_game = search_game(data['user_id'], data['game']['id'])
-    # verificar se o jogo foi zerado ou platinado
     if data['type'] == 'finished':
         origin_game['finished'] = True
-        origin_game['hours'] = data['game']['hours']
-        up_game(data['user_id'], origin_game)
-        if data['game']['hours'] >= 25:
-            update_earned(data['user_id'], data['game']['id'], 50)
-        else:
-            update_earned(data['user_id'], data['game']['id'], 25)
+        origin_game['data_finished'] = date.today().isoformat()
+        update_earned(data['user_id'], data['game']['id'], 50)
     elif data['type'] == 'platinum':
         if origin_game['finished'] == False:
             origin_game['finished'] = True
-            origin_game['hours'] = data['game']['hours']
-            if data['game']['hours'] >= 25:
-                update_earned(data['user_id'], data['game']['id'], 50)
-            else:
-                update_earned(data['user_id'], data['game']['id'], 25)
-        else:
-            origin_game['hours'] += data['game']['hours']
-        origin_game['platinum'] = True
-        up_game(data['user_id'], origin_game)
-        if data['game']['hours'] >= 40:
+            origin_game['data_finished'] = date.today().isoformat()
             update_earned(data['user_id'], data['game']['id'], 50)
-        elif data['game']['hours'] >= 20 and data['game']['hours'] < 40:
-            update_earned(data['user_id'], data['game']['id'], 30)
-        else:
-            update_earned(data['user_id'], data['game']['id'], 15)
+        origin_game['platinum'] = True
+        origin_game['data_platinum'] = date.today().isoformat()
+        update_earned(data['user_id'], data['game']['id'], 30)
+    up_game(data['user_id'], origin_game) 
     return 'Game Finished Successfully'
 
 def number_of_games(userId: str):

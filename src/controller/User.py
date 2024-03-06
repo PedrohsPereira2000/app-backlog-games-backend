@@ -25,8 +25,12 @@ def search_user_profile(user_id: str):
         "user_name": user['user_name'],
         "user_email": user['user_email'],
         "user_password": user['user_password'],
+        "user_photo": user['user_photo'],
     }
     return result
+
+def update_user_profile(user: User):
+    return update_user(user)
 
 def search_user_by_id(user_id: str):
     user = get_user_by_id(user_id)

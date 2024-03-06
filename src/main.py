@@ -45,10 +45,12 @@ def get_profile_by_user(user_id):
         {"Success": user}
     ), 200
 
-@app.route("/user/<user_id>/update", methods=['POST'])
-def update_user():
+@app.route("/user/<user_id>/profile/update", methods=['POST'])
+def update_user(user_id):
+    user = request.json
+    user_updated = update_user_profile(user)
     return jsonify({
-        "OK": "User updated with success"
+        "OK": "User updated with sucess"
     }
 ), 200
 

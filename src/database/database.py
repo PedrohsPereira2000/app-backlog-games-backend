@@ -40,7 +40,7 @@ def get_user_by_id(user_id: str):
 
 def update_user(user: User):
     result = user_collection.update_one(
-        {"user_email": user['user_email']},
+        {"user_id": user['user_id']},
         {"$set": user}
     )
     return result
