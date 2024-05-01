@@ -1,4 +1,4 @@
-from database.database import add_new_user, auth_user, get_user, update_user, get_user_id, get_user_by_id, get_user_backlog
+from database.database import*
 from models.User import User
 from flask import jsonify
 
@@ -17,6 +17,21 @@ def verify_user(user_email: str, user_password: str) -> bool:
 def get_user_id_by_email(user_email: str):
     return get_user_id(user_email)
 
+def search_user_profile(user_id: str):
+    user = get_user_by_id(user_id)
+
+    result = {
+        "user_id": user['user_id'],
+        "user_name": user['user_name'],
+        "user_email": user['user_email'],
+        "user_password": user['user_password'],
+        "user_photo": user['user_photo'],
+    }
+    return result
+
+def update_user_profile(user: User):
+    return update_user(user)
+
 def search_user_by_id(user_id: str):
     user = get_user_by_id(user_id)
     games = get_user_backlog(user_id)
@@ -27,7 +42,6 @@ def search_user_by_id(user_id: str):
         "user_email": user['user_email'],
         "backlog_games": games['jogos'],
         "list_buy_games": games['buy_list'],
-        "wallet": games['wallet']
+        "wallet": calc_wallet(user_id)
     }
-
     return result
