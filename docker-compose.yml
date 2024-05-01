@@ -21,8 +21,8 @@ services:
     build:
       context: .
     container_name: backend
-    depends_on:
-      - mongo1
+    # depends_on:
+    #   - mongo1
     ports:
       - 8889:8889
       - 5678:5678
@@ -34,19 +34,19 @@ services:
     command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 -m uvicorn src.api.app:app --host 0.0.0.0 --port 8889 --reload"]
     
 
-  mongo1:
-    hostname: mongo1
-    container_name: mongo1
-    image: mongo:5
-    networks:
-      - backend
-    volumes:
-      - ./volumes/mongo1:/mongo/data/mongo1
-      - ./dump:/dump
-    ports:
-      - 27017:27017
-    restart: always
-    deploy:
-      resources:
-        limits:
-          memory: 2g
+  # mongo1:
+  #   hostname: mongo1
+  #   container_name: mongo1
+  #   image: mongo:5
+  #   networks:
+  #     - backend
+  #   volumes:
+  #     - ./volumes/mongo1:/mongo/data/mongo1
+  #     - ./dump:/dump
+  #   ports:
+  #     - 27017:27017
+  #   restart: always
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 2g
